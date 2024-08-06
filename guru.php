@@ -66,8 +66,8 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="siswa.php">Siswa</a>
-                                <a class="nav-link" href="presensi.php">presensi</a>
                                 <a class="nav-link" href="guru.php">Guru</a>
+                                <a class="nav-link" href="presensi.php">presensi</a>
                             </nav>
                         </div>
                     </div>
