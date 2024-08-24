@@ -383,7 +383,7 @@ $conn->close();
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>locak
+                    <div class="small">Logged in as:</div>
                     Start Bootstrap
                 </div>
             </nav>
@@ -391,125 +391,25 @@ $conn->close();
         <!-- End Sidebar -->
         <div id="layoutSidenav_content">
             <main>
-                <div class="container-fluid px-4">
-                    <h1 class="mt-4">Dashboard</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>
-
-
-                    <div class="row">
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-success text-white mb-4">
-                                <div class="card-body">Hadir : <?php echo $jumlah_hadir ?></div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#" data-bs-toggle="modal" data-bs-target="#myModal">View Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 border border-secondary rounded p-4">
+                            <h2 class="text-center">Tambah guru</h2>
+                            <form action="guruProses.php" method="post" class="w-100">
+                                <div class="form-group mb-3">
+                                    <label for="nik">Nik:</label>
+                                    <input type="number" class="form-control" id="nik" name="nik" required>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-warning text-white mb-4">
-                                <div class="card-body">Sakit : <?php echo $jumlah_sakit ?></div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#" data-bs-toggle="modal" data-bs-target="#myModal1">View Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                <div class="form-group mb-3">
+                                    <label for="nama">Nama:</label>
+                                    <input type="text" class="form-control" id="nama" name="nama" required>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-primary text-white mb-4">
-                                <div class="card-body">Izin : <?php echo $jumlah_izin ?></div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#" data-bs-toggle="modal" data-bs-target="#myModal2">View Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                <div class="form-group mb-3">
+                                    <label for="kelas">Kelas:</label>
+                                    <input type="text" class="form-control" id="kelas" name="kelas" required>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="card bg-danger text-white mb-4">
-                                <div class="card-body">Alpha : <?php echo $jumlah_alpha ?></div>
-                                <div class="card-footer d-flex align-items-center justify-content-between">
-                                    <a class="small text-white stretched-link" href="#" data-bs-toggle="modal" data-bs-target="#myModal3">View Details</a>
-                                    <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-area me-1"></i>
-                                    Area Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="barChart" width="100%" height="350"></canvas></div>
-                            </div>
-                        </div>
-                        <div class="col-xl-6">
-                            <div class="card mb-4">
-                                <div class="card-header">
-                                    <i class="fas fa-chart-bar me-1"></i>
-                                    Bar Chart Example
-                                </div>
-                                <div class="card-body"><canvas id="myBarChart" width="100%" height="350"></canvas></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <i class="fas fa-table me-1"></i>
-                            Presensi
-                        </div>
-                        <div class="card-body">
-                            <table id="datatablesSimple" class="table table-striped table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>SESSION_ID</th>
-                                        <th>NISN_SISWA</th>
-                                        <th>STATUS_SISWA</th>
-                                        <th>TIMESTAMP</th>
-                                        <th>ID_GURU</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody>
-                                    <?php
-                                    $servername = "localhost";
-                                    $username = "root";
-                                    $password = "rizkymaulana31";
-                                    $dbname = "dummy_presensi";
-
-                                    $conn = new mysqli($servername, $username, $password, $dbname);
-
-                                    if ($conn->connect_error) {
-                                        die("Connection failed: " . $conn->connect_error);
-                                    }
-
-                                    $sql = "SELECT * FROM presensi";
-                                    $result = $conn->query($sql);
-
-                                    if ($result->num_rows > 0) {
-                                        // Output data setiap baris
-                                        while ($row = $result->fetch_assoc()) {
-                                            echo "<tr>";
-                                            echo "<td>" . $row["id"] . "</td>";
-                                            echo "<td>" . $row["session_id"] . "</td>";
-                                            echo "<td>" . $row["nisn_siswa"] . "</td>";
-                                            echo "<td>" . $row["status_siswa"] . "</td>";
-                                            echo "<td>" . $row["time_stamp"] . "</td>";
-                                            echo "<td>" . $row["id_guru"] . "</td>";
-                                            echo "</tr>";
-                                        }
-                                    } else {
-                                        echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                                    }
-
-                                    $conn->close();
-                                    ?>
-                                </tbody>
-                            </table>
+                                <button type="submit" class="btn btn-primary">Simpan</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -533,77 +433,6 @@ $conn->close();
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
-    <script>
-        const ctx = document.getElementById('barChart').getContext('2d');
-
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-                datasets: [{
-                        label: 'Hadir',
-                        data: [110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220],
-                        borderColor: 'green',
-                        backgroundColor: 'rgba(0, 255, 0, 0.2)',
-                        fill: true
-                    },
-                    {
-                        label: 'Sakit',
-                        data: [10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65],
-                        borderColor: 'yellow',
-                        backgroundColor: 'rgba(255, 255, 0, 0.2)',
-                        fill: true
-                    },
-                    {
-                        label: 'Izin',
-                        data: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
-                        borderColor: 'blue',
-                        backgroundColor: 'rgba(0, 0, 255, 0.2)',
-                        fill: true
-                    },
-                    {
-                        label: 'Alpha',
-                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                        borderColor: 'red',
-                        backgroundColor: 'rgba(255, 0, 0, 0.2)',
-                        fill: true
-                    }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    x: {
-                        ticks: {
-                            color: '#ffffff'
-                        }
-                    },
-                    y: {
-                        ticks: {
-                            color: '#ffffff'
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        labels: {
-                            color: '#ffffff'
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            title: function(tooltipItem) {
-                                return tooltipItem[0].label;
-                            }
-                        },
-                        backgroundColor: '#000000',
-                        titleColor: '#ffffff'
-                    }
-                }
-            }
-        });
-    </script>
 </body>
 
 </html>

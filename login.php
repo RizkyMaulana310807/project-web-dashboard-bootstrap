@@ -13,16 +13,16 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-primary">
+<body class="bg-white">
     <div id="layoutAuthentication">
         <div id="layoutAuthentication_content">
             <main>
                 <div class="container">
                     <div class="row justify-content-center">
                         <div class="col-lg-5">
-                            <div class="card shadow-lg border-0 rounded-lg mt-5">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5 bg-dark">
                                 <div class="card-header">
-                                    <h3 class="text-center font-weight-light my-4">Login</h3>
+                                    <h3 class="text-center font-weight-light my-4 text-white">Login</h3>
                                 </div>
                                 <div class="card-body">
                                     <form>
@@ -53,7 +53,7 @@
                 </div>
             </main>
         </div>
-        <div id="layoutAuthentication_footer">
+        <!-- <div id="layoutAuthentication_footer">
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
@@ -66,7 +66,7 @@
                     </div>
                 </div>
             </footer>
-        </div>
+        </div> -->
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>

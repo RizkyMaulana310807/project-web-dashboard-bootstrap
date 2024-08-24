@@ -11241,3 +11241,17 @@ body {
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
 }
+/* Membuat label radio button lebih mudah diklik */
+.form-check-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.form-check-input {
+  margin-right: 10px; /* Menambah jarak antara radio button dan label */
+}
+
+.radio-text {
+  display: inline-block;
+}

@@ -60,13 +60,26 @@
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Table
+                            Content
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="siswa.php">Siswa</a>
                                 <a class="nav-link" href="guru.php">Guru</a>
+                                <a class="nav-link" href="presensi.php">Presensi</a>
+                            </nav>
+                        </div>
+                        <div class="sb-sidenav-menu-heading">Admin</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#tambahLayout" aria-expanded="false" aria-controls="tambahLayout">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Tambah data
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="tambahLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="tambahSiswa.php">Siswa</a>
+                                <a class="nav-link" href="tambahGuru.php">Guru</a>
                                 <a class="nav-link" href="presensi.php">presensi</a>
                             </nav>
                         </div>
@@ -80,74 +93,153 @@
         </div>
         <!-- End Sidebar -->
 
-        <!-- Main Content Placeholder -->
+        <!-- Main Content -->
         <div id="layoutSidenav_content">
-            <!-- Konten utama akan ditempatkan di sini -->
-            <div id="layoutAuthentication">
-                <div id="layoutAuthentication_content">
-                    <main>
-                        <div class="container">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-5">
-                                    <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                        <div class="card-header">
-                                            <h3 class="text-center font-weight-light my-4">Absen</h3>
-                                        </div>
-                                        <div class="card-body">
-                                            <form>
-                                                <div class="form-floating mb-3">
-                                                    <input class="form-control" id="inputNama" type="email" placeholder="name@example.com" />
-                                                    <label for="inputNama">Nama</label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <input class="form-check-input" id="inputHadir" type="radio" name="status" value="hadir" />
-                                                    <label class="form-check-label" for="inputHadir">Hadir</label>
-                                                    <br>
-                                                    <input class="form-check-input" id="inputSakit" type="radio" name="status" value="sakit" />
-                                                    <label class="form-check-label" for="inputSakit">Sakit</label>
-                                                    <br>
-                                                    <input class="form-check-input" id="inputIzin" type="radio" name="status" value="izin" />
-                                                    <label class="form-check-label" for="inputIzin">Izin</label>
-                                                    <br>
-                                                    <input class="form-check-input" id="inputAlpha" type="radio" name="status" value="alpha" />
-                                                    <label class="form-check-label" for="inputAlpha">Alpha</label>
-                                                </div>
+            <main>
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-12">
+                            <div class="card shadow-lg border-0 rounded-lg mt-5 w-100">
+                                <div class="card-header">
+                                    <h3 class="text-center font-weight-light my-4">Absen</h3>
+                                    <div class="mb-3">
+                                        <!-- Form untuk memilih kelas -->
+                                        <form method="POST" action="" id="kategori-form" class="w-100">
+                                            <div class="mb-3">
+                                                <label for="kelas" class="form-label">Kelas:</label>
+                                                <select name="kelas" id="kelas" class="form-select" onchange="this.form.submit()">
+                                                    <option value="">Semua</option>
+                                                    <?php
+                                                    // Koneksi ke database
+                                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'dummy_presensi');
 
-                                                <div class="text-center">
-                                                    <a class="btn btn-primary" href="#" onclick="alert('Data berhasil di simpan')">Submit</a>
-                                                </div>
-                                            </form>
-                                        </div>
+                                                    // Cek koneksi
+                                                    if ($conn->connect_error) {
+                                                        die("Koneksi gagal: " . $conn->connect_error);
+                                                    }
+
+                                                    // Query untuk mengambil daftar kelas yang unik
+                                                    $sql = "SELECT DISTINCT kelas FROM siswa";
+                                                    $result = $conn->query($sql);
+
+                                                    // Ambil kategori yang dipilih sebelumnya
+                                                    $kelasDipilih = isset($_POST['kelas']) ? $_POST['kelas'] : '';
+
+                                                    // Tampilkan opsi kelas
+                                                    if ($result->num_rows > 0) {
+                                                        while ($row = $result->fetch_assoc()) {
+                                                            $selected = ($kelasDipilih == $row['kelas']) ? 'selected' : '';
+                                                            echo "<option value='" . $row['kelas'] . "' $selected>" . $row['kelas'] . "</option>";
+                                                        }
+                                                    }
+
+                                                    // Tutup koneksi
+                                                    $conn->close();
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </main>
-                </div>
-                <div id="layoutAuthentication_footer">
-                    <footer class="py-4 bg-light mt-auto">
-                        <div class="container-fluid px-4">
-                            <div class="d-flex align-items-center justify-content-between small">
-                                <div class="text-muted">Copyright &copy; Your Website 2023</div>
-                                <div>
-                                    <a href="#">Privacy Policy</a>
-                                    &middot;
-                                    <a href="#">Terms &amp; Conditions</a>
+                                <div class="card-body p-0">
+                                    <?php
+                                    // Koneksi ke database
+                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'dummy_presensi');
+
+                                    // Cek koneksi
+                                    if ($conn->connect_error) {
+                                        die("Koneksi gagal: " . $conn->connect_error);
+                                    }
+
+                                    // Query untuk mengambil data siswa sesuai kategori yang dipilih
+                                    $sql = "SELECT * FROM siswa";
+                                    if ($kelasDipilih != '') {
+                                        $sql .= " WHERE kelas = '$kelasDipilih'";
+                                    }
+
+                                    $result = $conn->query($sql);
+                                    ?>
+
+                                    <form method="POST" action="simpan_presensi.php" id="presensi-form" class="w-100">
+                                        <?php
+                                        if ($result->num_rows > 0) {
+                                            echo "<h3 class='mt-4 text-center'>Data Siswa</h3>";
+                                            echo "<table class='table table-bordered table-striped w-100 text-center'>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Kelas</th>
+                    <th>Hadir</th>
+                    <th>Sakit</th>
+                    <th>Izin</th>
+                    <th>Alpha</th>
+                </tr>
+            </thead>
+            <tbody>";
+                                            while ($row = $result->fetch_assoc()) {
+                                                // Nama grup radio berdasarkan ID siswa
+                                                $radioGroupName = "kehadiran_" . $row['id'];
+                                                echo "<tr>
+                    <td>" . $row['id'] . "</td>
+                    <td>" . $row['nama'] . "</td>
+                    <td>" . $row['kelas'] . "</td>
+                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='hadir_" . $row['id'] . "' value='Hadir'><label class='btn btn-outline-primary w-100' for='hadir_" . $row['id'] . "'>Hadir</label></td>
+                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='sakit_" . $row['id'] . "' value='Sakit'><label class='btn btn-outline-primary w-100' for='sakit_" . $row['id'] . "'>Sakit</label></td>
+                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='izin_" . $row['id'] . "' value='Izin'><label class='btn btn-outline-primary w-100' for='izin_" . $row['id'] . "'>Izin</label></td>
+                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='alpha_" . $row['id'] . "' value='Alpha'><label class='btn btn-outline-primary w-100' for='alpha_" . $row['id'] . "'>Alpha</label></td>
+                  </tr>";
+                                            }
+                                            echo "</tbody></table>";
+                                        } else {
+                                            echo "<p class='mt-4'>Tidak ada data siswa yang ditemukan.</p>";
+                                        }
+
+                                        // Tutup koneksi
+                                        $conn->close();
+                                        ?>
+
+                                        <div class="mb-3">
+                                            <button type="submit" class="btn btn-primary w-100" id="btnS">Simpan Presensi</button>
+                                        </div>
+                                    </form>
+
                                 </div>
                             </div>
                         </div>
-                    </footer>
+                    </div>
                 </div>
+            </main>
+            <div id="layoutAuthentication_footer">
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                            <div>
+                                <a href="#">Privacy Policy</a>
+                                &middot;
+                                <a href="#">Terms &amp; Conditions</a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
             </div>
-            <!-- End Main Content Placeholder -->
-
         </div>
+        <!-- End Main Content -->
+    </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="js/scripts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+    <script src="js/datatables-simple-demo.js"></script>
+    <script>
+        function onChangeAction() {
+            console.log("Action Change");
+            var form = document.getElementById("form");
+            form.submit();
+        }
+    </script>
 </body>
 
 </html>

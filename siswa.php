@@ -60,13 +60,26 @@
                         <div class="sb-sidenav-menu-heading">Interface</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Table
+                            Content
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="siswa.php">Siswa</a>
                                 <a class="nav-link" href="guru.php">Guru</a>
+                                <a class="nav-link" href="presensi.php">presensi</a>
+                            </nav>
+                        </div>
+                        <div class="sb-sidenav-menu-heading">Admin</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#tambahLayout" aria-expanded="false" aria-controls="tambahLayout">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Tambah data
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="tambahLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="tambahSiswa.php">Siswa</a>
+                                <a class="nav-link" href="tambahGuru.php">Guru</a>
                                 <a class="nav-link" href="presensi.php">presensi</a>
                             </nav>
                         </div>
@@ -104,7 +117,7 @@
                             $servername = "localhost";
                             $username = "root";
                             $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
+                            $dbname = "dummy_presensi";
 
                             $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -112,17 +125,17 @@
                                 die("Connection failed: " . $conn->connect_error);
                             }
 
-                            $sql = "SELECT * FROM guru";
+                            $sql = "SELECT * FROM siswa";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
                                 // Output data setiap baris
                                 while ($row = $result->fetch_assoc()) {
                                     echo "<tr>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
+                                    echo "<td>" . $row["id"] . "</td>";
                                     echo "<td>" . $row["nama"] . "</td>";
                                     echo "<td>" . $row["kelas"] . "</td>";
-                                    echo "<td>" . $row["tgllahir"] . "</td>";
+                                    echo "<td>" . $row["nisn"] . "</td>";
                                     echo "</tr>";
                                 }
                             } else {
