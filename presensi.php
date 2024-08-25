@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +15,32 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        .floating-alert {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1050;
+        }
+    </style>
 </head>
 
 <body class="sb-nav-fixed">
-
+    <?php
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                createAlert('$message');
+                setTimeout(function() {
+                    $(alertDiv).alert('close');
+                    isAlertVisible = false;
+                }, 2000);
+            });
+        </script>";
+        unset($_SESSION['message']); // Hapus pesan setelah ditampilkan
+    }
+    ?>
     <!-- Navbar -->
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
@@ -239,6 +264,38 @@
             var form = document.getElementById("form");
             form.submit();
         }
+        var isAlertVisible = false; // Variabel untuk melacak status notifikasi
+
+// Fungsi untuk membuat dan menampilkan alert baru
+function createAlert(message) {
+    if (!isAlertVisible) {
+        isAlertVisible = true;
+
+        // Membuat elemen div untuk alert baru
+        var alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success alert-dismissible fade show floating-alert';
+        alertDiv.role = 'alert';
+        alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+
+        // Menambahkan alert baru ke dalam body
+        document.body.appendChild(alertDiv);
+
+        // Menghilangkan alert secara otomatis setelah 2 detik
+        setTimeout(function() {
+            alertDiv.remove(); // Menghapus alert dari DOM
+            isAlertVisible = false;
+        }, 2000);
+
+        // Mengatur agar status diperbarui jika alert ditutup secara manual
+        alertDiv.addEventListener('closed.bs.alert', function() {
+            isAlertVisible = false;
+        });
+    }
+}
+
     </script>
 </body>
 
