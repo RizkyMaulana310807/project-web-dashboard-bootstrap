@@ -1,42 +1,3 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "rizkymaulana31";
-$dbname = "dummy_presensi";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-$sql = "SELECT status_siswa, COUNT(status_siswa) as jumlah FROM presensi GROUP BY status_siswa";
-$result = $conn->query($sql);
-
-$jumlah_hadir = 0;
-$jumlah_sakit = 0;
-$jumlah_izin = 0;
-$jumlah_alpha = 0;
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        switch ($row["status_siswa"]) {
-            case 'hadir':
-                $jumlah_hadir = $row["jumlah"];
-                break;
-            case 'sakit':
-                $jumlah_sakit = $row["jumlah"];
-                break;
-            case 'izin':
-                $jumlah_izin = $row["jumlah"];
-                break;
-            case 'alpha':
-                $jumlah_alpha = $row["jumlah"];
-                break;
-        }
-    }
-}
-
-$conn->close();
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,9 +15,33 @@ $conn->close();
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        .floating-alert {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1050;
+        }
+    </style>
 </head>
 
 <body class="sb-nav-fixed">
+    <?php
+    session_start();
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                createAlert('$message');
+                setTimeout(function() {
+                    $(alertDiv).alert('close');
+                    isAlertVisible = false;
+                }, 2000);
+            });
+        </script>";
+        unset($_SESSION['message']); // Hapus pesan setelah ditampilkan
+    }
+    ?>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="index.php">Start Bootstrap</a>
@@ -405,38 +390,40 @@ $conn->close();
                                     <input type="text" class="form-control" id="nama" name="nama" required>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="kelas" class="form-label">Pilih Gender:</label>
-                                    <select name="kelas" id="kategoriGender" class="form-select" onchange="handleOnChange()">
+                                    <label for="gender" class="form-label">Pilih Gender:</label>
+                                    <select name="gender" id="gender" class="form-select" onchange="handleOnChange()">
                                         <option value="none">Pilih Gender</option>
-                                        <option value="pria">L</option>
-                                        <option value="perempuan">P</option>
+                                        <option value="Laki-Laki">L</option>
+                                        <option value="Perempuan">P</option>
                                     </select>
                                 </div>
                                 <div class="form-group mb-3">
                                     <label for="kelas" class="form-label">Pilih kelas:</label>
-                                    <select name="kelas" id="kategoriGender" class="form-select" onchange="handleOnChange()">
+                                    <select name="kelas" id="kelas" class="form-select" onchange="handleOnChange()">
                                         <option value="none">Pilih Kelas</option>
                                         <?php
-                                        $servername = "localhost";
-                                        $username = "root";
-                                        $password = "rizkymaulana31";
-                                        $dbname = "dummy_presensi";
+                                        // Koneksi ke database
+                                        $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi');
 
-                                        $conn = new mysqli($servername, $username, $password, $dbname);
-
+                                        // Cek koneksi
                                         if ($conn->connect_error) {
-                                            die("Connection failed: " . $conn->connect_error);
+                                            die("Koneksi gagal: " . $conn->connect_error);
                                         }
 
-                                        $sql = "SELECT DISTINCT kelas FROM siswa";
+                                        // Query untuk mengambil daftar kelas yang unik
+                                        $sql = "SELECT DISTINCT(nama_kelas) FROM tabel_kelas";
                                         $result = $conn->query($sql);
 
+                                        // Tampilkan opsi kelas
                                         if ($result->num_rows > 0) {
                                             while ($row = $result->fetch_assoc()) {
-                                                $kelas = $row["kelas"];
-                                                echo "<option value='$kelas'>" . " kelas : " . $kelas . "</option>";
+                                                $selected = ($kelasDipilih == $row['nama_kelas']) ? 'selected' : '';
+                                                echo "<option value='" . $row['nama_kelas'] . "' $selected>" . $row['nama_kelas'] . "</option>";
                                             }
                                         }
+
+                                        // Tutup koneksi
+                                        $conn->close();
                                         ?>
                                     </select>
                                 </div>
@@ -464,6 +451,39 @@ $conn->close();
             </footer>
         </div>
     </div>
+    <script>
+        var isAlertVisible = false; // Variabel untuk melacak status notifikasi
+
+// Fungsi untuk membuat dan menampilkan alert baru
+function createAlert(message) {
+    if (!isAlertVisible) {
+        isAlertVisible = true;
+
+        // Membuat elemen div untuk alert baru
+        var alertDiv = document.createElement('div');
+        alertDiv.className = 'alert alert-success alert-dismissible fade show floating-alert';
+        alertDiv.role = 'alert';
+        alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+
+        // Menambahkan alert baru ke dalam body
+        document.body.appendChild(alertDiv);
+
+        // Menghilangkan alert secara otomatis setelah 2 detik
+        setTimeout(function() {
+            alertDiv.remove(); // Menghapus alert dari DOM
+            isAlertVisible = false;
+        }, 2000);
+
+        // Mengatur agar status diperbarui jika alert ditutup secara manual
+        alertDiv.addEventListener('closed.bs.alert', function() {
+            isAlertVisible = false;
+        });
+    }
+}
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>

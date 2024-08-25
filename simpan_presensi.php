@@ -28,7 +28,7 @@ foreach ($_POST as $key => $value) {
 
         // Query untuk memasukkan data presensi
         $sql = "INSERT INTO presensi (session_id, nisn_siswa, status_siswa, time_stamp, id_guru)
-                VALUES (NULL, '$nisn_siswa', '$status_siswa', NOW(), '$id_guru')";
+                VALUES ('098', '$nisn_siswa', '$status_siswa', NOW(), '$id_guru')";
         if (!$conn->query($sql)) {
             $success = false;
             break;

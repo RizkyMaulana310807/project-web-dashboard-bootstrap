@@ -441,7 +441,7 @@ $conn->close();
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <i class="fas fa-chart-area me-1"></i>
-                                    Area Chart Example
+                                    Analisa kehadiran
                                 </div>
                                 <div class="card-body"><canvas id="barChart" width="100%" height="350"></canvas></div>
                             </div>
@@ -450,7 +450,7 @@ $conn->close();
                             <div class="card mb-4">
                                 <div class="card-header">
                                     <i class="fas fa-chart-bar me-1"></i>
-                                    Bar Chart Example
+                                    Analisa kehadiran
                                 </div>
                                 <div class="card-body"><canvas id="myBarChart" width="100%" height="350"></canvas></div>
                             </div>

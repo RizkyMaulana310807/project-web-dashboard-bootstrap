@@ -1,42 +1,3 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "rizkymaulana31";
-$dbname = "dummy_presensi";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-$sql = "SELECT status_siswa, COUNT(status_siswa) as jumlah FROM presensi GROUP BY status_siswa";
-$result = $conn->query($sql);
-
-$jumlah_hadir = 0;
-$jumlah_sakit = 0;
-$jumlah_izin = 0;
-$jumlah_alpha = 0;
-
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        switch ($row["status_siswa"]) {
-            case 'hadir':
-                $jumlah_hadir = $row["jumlah"];
-                break;
-            case 'sakit':
-                $jumlah_sakit = $row["jumlah"];
-                break;
-            case 'izin':
-                $jumlah_izin = $row["jumlah"];
-                break;
-            case 'alpha':
-                $jumlah_alpha = $row["jumlah"];
-                break;
-        }
-    }
-}
-
-$conn->close();
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,9 +15,34 @@ $conn->close();
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <style>
+        .floating-alert {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1050;
+        }
+    </style>
 </head>
 
 <body class="sb-nav-fixed">
+    <?php
+    session_start();
+
+    if (isset($_SESSION['message'])) {
+        $message = $_SESSION['message'];
+        echo "<script>
+            document.addEventListener('DOMContentLoaded', function() {
+                createAlert('$message');
+                setTimeout(function() {
+                    $(alertDiv).alert('close');
+                    isAlertVisible = false;
+                }, 2000);
+            });
+        </script>";
+        unset($_SESSION['message']); // Hapus pesan setelah ditampilkan
+    }
+    ?>
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" href="index.php">Start Bootstrap</a>
@@ -85,262 +71,6 @@ $conn->close();
         </ul>
     </nav>
     <!-- End Navbar -->
-    <div class="modal fade w-full" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">SISWA HADIR</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table id="datatablesSimple">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT * FROM presensi where status = 'hadir'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade w-full" id="myModal1" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">SISWA SAKIT</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT * FROM presensi where status = 'sakit'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade w-full" id="myModal2" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">SISWA IZIN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT * FROM presensi where status = 'izin'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade w-full" id="myModal3" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">SISWA ALPHA</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT * FROM presensi where status = 'alpha'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
     <!-- Sidebar -->
@@ -405,8 +135,45 @@ $conn->close();
                                     <input type="text" class="form-control" id="nama" name="nama" required>
                                 </div>
                                 <div class="form-group mb-3">
+                                    <label for="gender">Gender:</label>
+                                    <select name="gender" id="gender">
+                                        <option value="P">Perempuan</option>
+                                        <option value="L">Laki - Laki</option>
+                                    </select>
+                                </div>
+                                <div class="form-group mb-3">
+                                    <label for="idGuru">ID Guru : </label>
+                                    <input type="text" class="form-control" id="idGuru" name="idGuru" required>
+                                </div>
+                                <div class="form-group mb-3">
                                     <label for="kelas">Kelas:</label>
-                                    <input type="text" class="form-control" id="kelas" name="kelas" required>
+                                    <select name="kelas" id="kelas" class="form-select">
+                                        <option value="">Semua</option>
+                                        <?php
+                                        // Koneksi ke database
+                                        $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi');
+
+                                        // Cek koneksi
+                                        if ($conn->connect_error) {
+                                            die("Koneksi gagal: " . $conn->connect_error);
+                                        }
+
+                                        // Query untuk mengambil daftar kelas yang unik
+                                        $sql = "SELECT DISTINCT(nama_kelas) FROM tabel_kelas";
+                                        $result = $conn->query($sql);
+
+                                        // Tampilkan opsi kelas
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $selected = ($kelasDipilih == $row['nama_kelas']) ? 'selected' : '';
+                                                echo "<option value='" . $row['nama_kelas'] . "' $selected>" . $row['nama_kelas'] . "</option>";
+                                            }
+                                        }
+
+                                        // Tutup koneksi
+                                        $conn->close();
+                                        ?>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Simpan</button>
                             </form>
@@ -428,6 +195,39 @@ $conn->close();
             </footer>
         </div>
     </div>
+    <script>
+        var isAlertVisible = false; // Variabel untuk melacak status notifikasi
+
+        // Fungsi untuk membuat dan menampilkan alert baru
+        function createAlert(message) {
+            if (!isAlertVisible) {
+                isAlertVisible = true;
+
+                // Membuat elemen div untuk alert baru
+                var alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-success alert-dismissible fade show floating-alert';
+                alertDiv.role = 'alert';
+                alertDiv.innerHTML = `
+            ${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        `;
+
+                // Menambahkan alert baru ke dalam body
+                document.body.appendChild(alertDiv);
+
+                // Menghilangkan alert secara otomatis setelah 2 detik
+                setTimeout(function() {
+                    alertDiv.remove(); // Menghapus alert dari DOM
+                    isAlertVisible = false;
+                }, 2000);
+
+                // Mengatur agar status diperbarui jika alert ditutup secara manual
+                alertDiv.addEventListener('closed.bs.alert', function() {
+                    isAlertVisible = false;
+                });
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
