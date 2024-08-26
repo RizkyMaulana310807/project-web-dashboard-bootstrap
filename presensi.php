@@ -136,7 +136,7 @@ session_start();
                                                     <option value="">Semua</option>
                                                     <?php
                                                     // Koneksi ke database
-                                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi');
+                                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi2');
 
                                                     // Cek koneksi
                                                     if ($conn->connect_error) {
@@ -169,7 +169,7 @@ session_start();
                                 <div class="card-body p-0">
                                     <?php
                                     // Koneksi ke database
-                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi');
+                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi2');
 
                                     // Cek koneksi
                                     if ($conn->connect_error) {

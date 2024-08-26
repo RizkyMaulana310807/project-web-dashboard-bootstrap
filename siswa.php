@@ -112,7 +112,7 @@
                             $servername = "localhost";
                             $username = "root";
                             $password = "rizkymaulana31";
-                            $dbname = "testing_presensi";
+                            $dbname = "testing_presensi2";
 
                             $conn = new mysqli($servername, $username, $password, $dbname);
 
