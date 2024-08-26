@@ -377,7 +377,7 @@ $conn->close();
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="tambaSiswa.php">Siswa</a>
                                 <a class="nav-link" href="tambahGuru.php">Guru</a>
-                                <a class="nav-link" href="presensi.php">presensi</a>
+                                <a class="nav-link" href="buatSesi.php">Tambah Sesi</a>
                             </nav>
                         </div>
                     </div>

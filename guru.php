@@ -12,6 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 </head>
 
 <body class="sb-nav-fixed">
@@ -67,20 +68,20 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="siswa.php">Siswa</a>
                                 <a class="nav-link" href="guru.php">Guru</a>
-                                <a class="nav-link" href="presensi.php">presensi</a>
+                                <a class="nav-link" href="presensi.php">Presensi</a>
                             </nav>
                         </div>
                         <div class="sb-sidenav-menu-heading">Admin</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#tambahLayout" aria-expanded="false" aria-controls="tambahLayout">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Tambah data
+                            Tambah Data
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="tambahLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="tambahSiswa.php">Siswa</a>
                                 <a class="nav-link" href="tambahGuru.php">Guru</a>
-                                <a class="nav-link" href="presensi.php">presensi</a>
+                                <a class="nav-link" href="buatSesi.php">Tambah Sesi</a>
                             </nav>
                         </div>
                     </div>
@@ -102,13 +103,16 @@
                     DataTable Example
                 </div>
                 <div class="card-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
+                    <table id="datatablesSimple">
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>NIK</th>
                                 <th>NAMA</th>
-                                <th>KELAS</th>
+                                <th>GENDER</th>
+                                <th>ID GURU</th>
+                                <th>ID KELAS</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
 
@@ -117,7 +121,7 @@
                             $servername = "localhost";
                             $username = "root";
                             $password = "rizkymaulana31";
-                            $dbname = "dummy_presensi";
+                            $dbname = "testing_presensi";
 
                             $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -125,21 +129,27 @@
                                 die("Connection failed: " . $conn->connect_error);
                             }
 
-                            $sql = "SELECT * FROM guru";
+                            $sql = "SELECT * FROM tabel_guru";
                             $result = $conn->query($sql);
 
                             if ($result->num_rows > 0) {
                                 // Output data setiap baris
                                 while ($row = $result->fetch_assoc()) {
                                     echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nik"] . "</td>";
-                                    echo "<td>" . $row["nama"] . "</td>";
-                                    echo "<td>" . $row["kelas"] . "</td>";
+                                    echo "<td>" . $row["id_guru"] . "</td>";
+                                    echo "<td>" . $row["nik_guru"] . "</td>";
+                                    echo "<td>" . $row["nama_guru"] . "</td>";
+                                    echo "<td>" . $row["gender_guru"] . "</td>";
+                                    echo "<td>" . $row["idGuru"] . "</td>";
+                                    echo "<td>" . $row["idKelas"] . "</td>";
+                                    echo "<td>";
+                                    echo "<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#editModal' data-id='" . $row["id_guru"] . "' data-nik='" . $row["nik_guru"] . "' data-nama='" . $row["nama_guru"] . "' data-gender='" . $row["gender_guru"] . "' data-idguru='" . $row["idGuru"] . "' data-idkelas='" . $row["idKelas"] . "'>Edit</button>";
+                                    echo "<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#deleteModal' data-id='" . $row["id_guru"] . "'>Hapus</button>";
+                                    echo "</td>";
                                     echo "</tr>";
                                 }
                             } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
+                                echo "<tr><td colspan='8'>Tidak ada data</td></tr>";
                             }
 
                             $conn->close();
@@ -153,11 +163,155 @@
 
     </div>
 
+    <!-- Edit Modal -->
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="editForm">
+                    <div class="modal-body">
+                        <input type="hidden" id="editId" name="id_guru">
+                        <div class="mb-3">
+                            <label for="editNIK" class="form-label">NIK</label>
+                            <input type="text" class="form-control" id="editNIK" name="nik_guru">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editNama" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="editNama" name="nama_guru">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editGender" class="form-label">Gender</label>
+                            <select class="form-select" id="editGender" name="gender_guru">
+                                <option value="L">Laki-laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="editIdGuru" class="form-label">ID Guru</label>
+                            <input type="text" class="form-control" id="editIdGuru" name="idGuru">
+                        </div>
+                        <div class="mb-3">
+                            <label for="editIdKelas" class="form-label">ID Kelas</label>
+                            <input type="text" class="form-control" id="editIdKelas" name="idKelas">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-success">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete this record?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDelete">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="js/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
+    <script>
+        // Edit Modal Event
+        var editModal = document.getElementById('editModal');
+        editModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            var id = button.getAttribute('data-id');
+            var nik = button.getAttribute('data-nik');
+            var nama = button.getAttribute('data-nama');
+            var gender = button.getAttribute('data-gender');
+            var idGuru = button.getAttribute('data-idguru');
+            var idKelas = button.getAttribute('data-idkelas');
+
+            console.log({
+                id,
+                nik,
+                nama,
+                gender,
+                idGuru,
+                idKelas
+            }); // Debugging output
+
+            var modal = editModal.querySelector('form');
+            modal.querySelector('#editId').value = id;
+            modal.querySelector('#editNIK').value = nik;
+            modal.querySelector('#editNama').value = nama;
+            modal.querySelector('#editGender').value = gender;
+            modal.querySelector('#editIdGuru').value = idGuru;
+            modal.querySelector('#editIdKelas').value = idKelas;
+        });
+
+
+        // Edit Form Submit
+        document.getElementById('editForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            // Debugging output
+            for (var [key, value] of formData.entries()) {
+                console.log(key + ': ' + value);
+            }
+
+            fetch('updateGuru.php', {
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.text())
+                .then(result => {
+                    alert(result); // Show server response
+                    window.location.reload();
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+
+
+
+        // Delete Modal Event
+        var deleteModal = document.getElementById('deleteModal');
+        var deleteId = null;
+
+        deleteModal.addEventListener('show.bs.modal', function(event) {
+            var button = event.relatedTarget;
+            deleteId = button.getAttribute('data-id');
+        });
+
+        // Confirm Delete
+        document.getElementById('confirmDelete').addEventListener('click', function() {
+            fetch('deleteGuru.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: 'id=' + encodeURIComponent(deleteId)
+                }).then(response => response.text())
+                .then(result => {
+                    alert('Data deleted successfully');
+                    window.location.reload();
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+        });
+    </script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 session_start();
 
 // Koneksi ke database
-$conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'dummy_presensi');
+$conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi');
 
 // Cek koneksi
 if ($conn->connect_error) {
@@ -19,16 +19,16 @@ foreach ($_POST as $key => $value) {
         $id_guru = 'G003'; // Sesuaikan ID guru yang akan menyimpan data presensi
 
         // Query untuk mendapatkan NISN siswa
-        $sql_nisn = "SELECT nisn FROM siswa WHERE id='$id_siswa'";
-        $result_nisn = $conn->query($sql_nisn);
-        if ($result_nisn->num_rows > 0) {
-            $row_nisn = $result_nisn->fetch_assoc();
-            $nisn_siswa = $row_nisn['nisn'];
-        }
+        // $sql_nisn = "SELECT nisn FROM siswa WHERE id='$id_siswa'";
+        // $result_nisn = $conn->query($sql_nisn);
+        // if ($result_nisn->num_rows > 0) {
+        //     $row_nisn = $result_nisn->fetch_assoc();
+        //     $nisn_siswa = $row_nisn['nisn'];
+        // }
 
         // Query untuk memasukkan data presensi
-        $sql = "INSERT INTO presensi (session_id, nisn_siswa, status_siswa, time_stamp, id_guru)
-                VALUES ('098', '$nisn_siswa', '$status_siswa', NOW(), '$id_guru')";
+        $sql = "INSERT INTO tabel_presensi (idGuru_presensi, idKelas_presensi, idSiswa_presensi, statusSiswa_presensi, waktu_presensi)
+                VALUES ('001', '001', '001';, '$status_siswa', NOW())";
         if (!$conn->query($sql)) {
             $success = false;
             break;

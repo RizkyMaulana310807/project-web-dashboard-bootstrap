@@ -136,7 +136,7 @@ session_start();
                                                     <option value="">Semua</option>
                                                     <?php
                                                     // Koneksi ke database
-                                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'dummy_presensi');
+                                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi');
 
                                                     // Cek koneksi
                                                     if ($conn->connect_error) {
@@ -144,7 +144,7 @@ session_start();
                                                     }
 
                                                     // Query untuk mengambil daftar kelas yang unik
-                                                    $sql = "SELECT DISTINCT kelas FROM siswa";
+                                                    $sql = "SELECT DISTINCT(nama_kelas) FROM tabel_kelas";
                                                     $result = $conn->query($sql);
 
                                                     // Ambil kategori yang dipilih sebelumnya
@@ -153,8 +153,8 @@ session_start();
                                                     // Tampilkan opsi kelas
                                                     if ($result->num_rows > 0) {
                                                         while ($row = $result->fetch_assoc()) {
-                                                            $selected = ($kelasDipilih == $row['kelas']) ? 'selected' : '';
-                                                            echo "<option value='" . $row['kelas'] . "' $selected>" . $row['kelas'] . "</option>";
+                                                            $selected = ($kelasDipilih == $row['nama_kelas']) ? 'selected' : '';
+                                                            echo "<option value='" . $row['nama_kelas'] . "' $selected>" . $row['nama_kelas'] . "</option>";
                                                         }
                                                     }
 
@@ -169,7 +169,7 @@ session_start();
                                 <div class="card-body p-0">
                                     <?php
                                     // Koneksi ke database
-                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'dummy_presensi');
+                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi');
 
                                     // Cek koneksi
                                     if ($conn->connect_error) {
@@ -177,9 +177,9 @@ session_start();
                                     }
 
                                     // Query untuk mengambil data siswa sesuai kategori yang dipilih
-                                    $sql = "SELECT * FROM siswa";
+                                    $sql = "SELECT * FROM tabel_siswa";
                                     if ($kelasDipilih != '') {
-                                        $sql .= " WHERE kelas = '$kelasDipilih'";
+                                        $sql .= " WHERE idKelas_siswa = '$kelasDipilih'";
                                     }
 
                                     $result = $conn->query($sql);
@@ -206,9 +206,9 @@ session_start();
                                                 // Nama grup radio berdasarkan ID siswa
                                                 $radioGroupName = "kehadiran_" . $row['id'];
                                                 echo "<tr>
-                    <td>" . $row['id'] . "</td>
-                    <td>" . $row['nama'] . "</td>
-                    <td>" . $row['kelas'] . "</td>
+                    <td>" . $row['id_siswa'] . "</td>
+                    <td>" . $row['nama_siswa'] . "</td>
+                    <td>" . $row['idKelas_siswa'] . "</td>
                     <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='hadir_" . $row['id'] . "' value='Hadir'><label class='btn btn-outline-primary w-100' for='hadir_" . $row['id'] . "'>Hadir</label></td>
                     <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='sakit_" . $row['id'] . "' value='Sakit'><label class='btn btn-outline-primary w-100' for='sakit_" . $row['id'] . "'>Sakit</label></td>
                     <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='izin_" . $row['id'] . "' value='Izin'><label class='btn btn-outline-primary w-100' for='izin_" . $row['id'] . "'>Izin</label></td>

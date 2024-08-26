@@ -27,7 +27,7 @@ $tanggallahir = isset($_POST['tanggallahir']) ? $_POST['tanggallahir'] : '';
 
 // Menyiapkan statement
 $stmt = $conn->prepare("INSERT INTO tabel_siswa (nisn_siswa, nama_siswa, idKelas_siswa, gender_siswa, tgllahir_siswa) VALUES (?, ?, ?, ?, ?)");
-$stmt->bind_param("sssss", $nama, $kelas, $nisn, $gender, $tanggallahir);
+$stmt->bind_param("sssss", $nisn, $nama, $kelas, $gender, $tanggallahir);
 
 // Mengeksekusi statement
 if ($stmt->execute()) {

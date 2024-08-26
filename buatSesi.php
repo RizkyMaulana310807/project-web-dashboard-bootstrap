@@ -82,10 +82,10 @@ session_start();
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
-                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <div class="sb-sidenav-menu-heading">Konten</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Content
+                            Konten utama
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
@@ -105,7 +105,7 @@ session_start();
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="tambahSiswa.php">Siswa</a>
                                 <a class="nav-link" href="tambahGuru.php">Guru</a>
-                                <a class="nav-link" href="presensi.php">presensi</a>
+                                <a class="nav-link" href="buatSesi.php">Tambah Sesi</a>
                             </nav>
                         </div>
                     </div>
@@ -121,7 +121,92 @@ session_start();
         <!-- Main Content -->
         <div id="layoutSidenav_content">
             <main>
-                
+            <div class="container mt-5 d-flex flex-column gap-3">
+        <h2 class="mb-4">Form Pembuatan Sesi Presensi</h2>
+        <form action="prosesBuatSesi.php" method="post">
+            <div class="form-group mb-4">
+                <label for="namaSesi">Nama Sesi:</label>
+                <input class="form-control" type="text" name="namaSesi" id="namaSesi" placeholder="Masukkan nama sesi ..." required>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="group">Pilih Grup:</label>
+                <select id="group" name="group" class="form-control" required>
+                    <option value="">-- Pilih Grup --</option>
+                    <option value="Group A">Group A</option>
+                    <option value="Group B">Group B</option>
+                    <option value="Group C">Group C</option>
+                    <!-- Tambahkan grup sesuai kebutuhan -->
+                </select>
+            </div>
+
+            <div class="form-group d-flex gap-3 mb-4">
+                <label>Pilih Hari Sesi:</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="days[]" value="Monday" id="monday">
+                    <label class="form-check-label" for="monday">Senin</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="days[]" value="Tuesday" id="tuesday">
+                    <label class="form-check-label" for="tuesday">Selasa</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="days[]" value="Wednesday" id="wednesday">
+                    <label class="form-check-label" for="wednesday">Rabu</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="days[]" value="Thursday" id="thursday">
+                    <label class="form-check-label" for="thursday">Kamis</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="days[]" value="Friday" id="friday">
+                    <label class="form-check-label" for="friday">Jumat</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="days[]" value="Saturday" id="saturday">
+                    <label class="form-check-label" for="saturday">Sabtu</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="days[]" value="Sunday" id="sunday">
+                    <label class="form-check-label" for="sunday">Minggu</label>
+                </div>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="start_date">Tanggal Awal:</label>
+                <input type="date" id="start_date" name="start_date" class="form-control" required>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="end_date">Tanggal Akhir:</label>
+                <input type="date" id="end_date" name="end_date" class="form-control" required>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="start_time">Jam Mulai:</label>
+                <input type="time" id="start_time" name="start_time" class="form-control" required>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="end_time">Jam Selesai:</label>
+                <input type="time" id="end_time" name="end_time" class="form-control" required>
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="repeat_interval">Ulangi Sesi Setiap:</label>
+                <select id="repeat_interval" name="repeat_interval" class="form-control" required>
+                    <option value="1">1 Minggu</option>
+                    <option value="2">2 Minggu</option>
+                    <option value="3">3 Minggu</option>
+                    <option value="4">4 Minggu</option>
+                    <!-- Tambahkan interval sesuai kebutuhan -->
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Buat Sesi</button>
+        </form>
+    </div>
+
             </main>
             <div id="layoutAuthentication_footer">
                 <footer class="py-4 bg-light mt-auto">
