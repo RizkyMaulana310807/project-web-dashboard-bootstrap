@@ -8,7 +8,7 @@ error_reporting(E_ALL);
 $servername = "localhost";
 $username = "root";
 $password = "rizkymaulana31";
-$dbname = "testing_presensi2";
+$dbname = "testing_presensi4";
 
 // Membuat koneksi
 $conn = new mysqli($servername, $username, $password, $dbname);

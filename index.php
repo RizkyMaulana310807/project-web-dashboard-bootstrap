@@ -1,41 +1,41 @@
-<?php
-$servername = "localhost";
-$username = "root";
-$password = "rizkymaulana31";
-$dbname = "dummy_presensi";
+<!-- <?php
+// $servername = "localhost";
+// $username = "root";
+// $password = "rizkymaulana31";
+// $dbname = "testing_presensi4";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+// $conn = new mysqli($servername, $username, $password, $dbname);
 
-$sql = "SELECT status_siswa, COUNT(status_siswa) as jumlah FROM presensi GROUP BY status_siswa";
-$result = $conn->query($sql);
+// $sql = "SELECT statusSiswa_presensi, COUNT(statusSiswa_presensi) as jumlah FROM tabel_presensi GROUP BY status";
+// $result = $conn->query($sql);
 
-$jumlah_hadir = 0;
-$jumlah_sakit = 0;
-$jumlah_izin = 0;
-$jumlah_alpha = 0;
+// $jumlah_hadir = 0;
+// $jumlah_sakit = 0;
+// $jumlah_izin = 0;
+// $jumlah_alpha = 0;
 
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        switch ($row["status_siswa"]) {
-            case 'hadir':
-                $jumlah_hadir = $row["jumlah"];
-                break;
-            case 'sakit':
-                $jumlah_sakit = $row["jumlah"];
-                break;
-            case 'izin':
-                $jumlah_izin = $row["jumlah"];
-                break;
-            case 'alpha':
-                $jumlah_alpha = $row["jumlah"];
-                break;
-        }
-    }
-}
+// if ($result->num_rows > 0) {
+//     while ($row = $result->fetch_assoc()) {
+//         switch ($row["statusSiswa_presensi"]) {
+//             case 'Hadir':
+//                 $jumlah_hadir = $row["jumlah"];
+//                 break;
+//             case 'Sakit':
+//                 $jumlah_sakit = $row["jumlah"];
+//                 break;
+//             case 'Izin':
+//                 $jumlah_izin = $row["jumlah"];
+//                 break;
+//             case 'Alpha':
+//                 $jumlah_alpha = $row["jumlah"];
+//                 break;
+//         }
+//     }
+// }
 
-$conn->close();
+// $conn->close();
 
-?>
+?>  -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,54 +93,54 @@ $conn->close();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table id="datatablesSimple">
+                    <!-- <table id="datatablesSimple">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
+                                <th>Nama Guru</th>
+                                <th>Kelas Siswa</th>
+                                <th>Nama Siswa</th>
+                                <th>Status Siswa</th>
+                                <th>Waktu Presensi</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
+                            // $servername = "localhost";
+                            // $username = "root";
+                            // $password = "rizkymaulana31";
+                            // $dbname = "testing_presensi4";
 
-                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            // $conn = new mysqli($servername, $username, $password, $dbname);
 
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
+                            // if ($conn->connect_error) {
+                            //     die("Connection failed: " . $conn->connect_error);
+                            // }
 
-                            $sql = "SELECT * FROM presensi where status = 'hadir'";
-                            $result = $conn->query($sql);
+                            // $sql = "SELECT * FROM tabel_presensi where statusSiswa_presensi = 'Hadir'";
+                            // $result = $conn->query($sql);
 
-                            if ($result->num_rows > 0) {
+                            // if ($result->num_rows > 0) {
 
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
+                            //     while ($row = $result->fetch_assoc()) {
+                            //         echo "<tr>";
+                            //         echo "<td>" . $row["id_presensi"] . "</td>";
+                            //         echo "<td>" . $row["namaGuru_presensi"] . "</td>";
+                            //         echo "<td>" . $row["kelasSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["namaSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["statusSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["waktu_presensi"] . "</td>";
+                            //         echo "</tr>";
+                            //     }
+                            // } else {
+                            //     echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
+                            // }
 
-                            $conn->close();
+                            // $conn->close();
                             ?>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -157,54 +157,54 @@ $conn->close();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
+                    <!-- <table id="datatablesSimple" class="table table-bordered sticky-table">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
+                                <th>Nama Guru</th>
+                                <th>Kelas Siswa</th>
+                                <th>Nama Siswa</th>
+                                <th>Status Siswa</th>
+                                <th>Waktu Presensi</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
+                            // $servername = "localhost";
+                            // $username = "root";
+                            // $password = "rizkymaulana31";
+                            // $dbname = "testing_presensi4";
 
-                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            // $conn = new mysqli($servername, $username, $password, $dbname);
 
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
+                            // if ($conn->connect_error) {
+                            //     die("Connection failed: " . $conn->connect_error);
+                            // }
 
-                            $sql = "SELECT * FROM presensi where status = 'sakit'";
-                            $result = $conn->query($sql);
+                            // $sql = "SELECT * FROM tabel_presensi where statusSiswa_presensi = 'Sakit'";
+                            // $result = $conn->query($sql);
 
-                            if ($result->num_rows > 0) {
+                            // if ($result->num_rows > 0) {
 
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
+                            //     while ($row = $result->fetch_assoc()) {
+                            //         echo "<tr>";
+                            //         echo "<td>" . $row["id_presensi"] . "</td>";
+                            //         echo "<td>" . $row["namaGuru_presensi"] . "</td>";
+                            //         echo "<td>" . $row["kelasSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["namaSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["statusSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["waktu_presensi"] . "</td>";
+                            //         echo "</tr>";
+                            //     }
+                            // } else {
+                            //     echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
+                            // }
 
-                            $conn->close();
+                            // $conn->close();
                             ?>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -221,54 +221,54 @@ $conn->close();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
+                    <!-- <table id="datatablesSimple" class="table table-bordered sticky-table">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
+                                <th>Nama Guru</th>
+                                <th>Kelas Siswa</th>
+                                <th>Nama Siswa</th>
+                                <th>Status Siswa</th>
+                                <th>Waktu Presensi</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
+                            // $servername = "localhost";
+                            // $username = "root";
+                            // $password = "rizkymaulana31";
+                            // $dbname = "testing_presensi4";
 
-                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            // $conn = new mysqli($servername, $username, $password, $dbname);
 
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
+                            // if ($conn->connect_error) {
+                            //     die("Connection failed: " . $conn->connect_error);
+                            // }
 
-                            $sql = "SELECT * FROM presensi where status = 'izin'";
-                            $result = $conn->query($sql);
+                            // $sql = "SELECT * FROM tabel_presensi where statusSiswa_presensi = 'Izin'";
+                            // $result = $conn->query($sql);
 
-                            if ($result->num_rows > 0) {
+                            // if ($result->num_rows > 0) {
 
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
+                            //     while ($row = $result->fetch_assoc()) {
+                            //         echo "<tr>";
+                            //         echo "<td>" . $row["id_presensi"] . "</td>";
+                            //         echo "<td>" . $row["namaGuru_presensi"] . "</td>";
+                            //         echo "<td>" . $row["kelasSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["namaSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["statusSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["waktu_presensi"] . "</td>";
+                            //         echo "</tr>";
+                            //     }
+                            // } else {
+                            //     echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
+                            // }
 
-                            $conn->close();
+                            // $conn->close();
                             ?>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -285,54 +285,54 @@ $conn->close();
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
+                    <!-- <table id="datatablesSimple" class="table table-bordered sticky-table">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
+                                <th>Nama Guru</th>
+                                <th>Kelas Siswa</th>
+                                <th>Nama Siswa</th>
+                                <th>Status Siswa</th>
+                                <th>Waktu Presensi</th>
                             </tr>
                         </thead>
 
                         <tbody>
                             <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
+                            // $servername = "localhost";
+                            // $username = "root";
+                            // $password = "rizkymaulana31";
+                            // $dbname = "testing_presensi4";
 
-                            $conn = new mysqli($servername, $username, $password, $dbname);
+                            // $conn = new mysqli($servername, $username, $password, $dbname);
 
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
+                            // if ($conn->connect_error) {
+                            //     die("Connection failed: " . $conn->connect_error);
+                            // }
 
-                            $sql = "SELECT * FROM presensi where status = 'alpha'";
-                            $result = $conn->query($sql);
+                            // $sql = "SELECT * FROM tabel_presensi where statusSiswa_presensi = 'Alpha'";
+                            // $result = $conn->query($sql);
 
-                            if ($result->num_rows > 0) {
+                            // if ($result->num_rows > 0) {
 
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
+                            //     while ($row = $result->fetch_assoc()) {
+                            //         echo "<tr>";
+                            //         echo "<td>" . $row["id_presensi"] . "</td>";
+                            //         echo "<td>" . $row["namaGuru_presensi"] . "</td>";
+                            //         echo "<td>" . $row["kelasSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["namaSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["statusSiswa_presensi"] . "</td>";
+                            //         echo "<td>" . $row["waktu_presensi"] . "</td>";
+                            //         echo "</tr>";
+                            //     }
+                            // } else {
+                            //     echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
+                            // }
 
-                            $conn->close();
+                            // $conn->close();
                             ?>
                         </tbody>
-                    </table>
+                    </table> -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -466,11 +466,11 @@ $conn->close();
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>SESSION_ID</th>
-                                        <th>NISN_SISWA</th>
-                                        <th>STATUS_SISWA</th>
-                                        <th>TIMESTAMP</th>
-                                        <th>ID_GURU</th>
+                                        <th>Nama Guru</th>
+                                        <th>Kelas Siswa</th>
+                                        <th>Nama Siswa</th>
+                                        <th>Status Siswa</th>
+                                        <th>Waktu Presensi</th>
                                     </tr>
                                 </thead>
 
@@ -479,7 +479,7 @@ $conn->close();
                                     $servername = "localhost";
                                     $username = "root";
                                     $password = "rizkymaulana31";
-                                    $dbname = "dummy_presensi";
+                                    $dbname = "testing_presensi4";
 
                                     $conn = new mysqli($servername, $username, $password, $dbname);
 
@@ -487,19 +487,19 @@ $conn->close();
                                         die("Connection failed: " . $conn->connect_error);
                                     }
 
-                                    $sql = "SELECT * FROM presensi";
+                                    $sql = "SELECT * FROM tabel_presensi";
                                     $result = $conn->query($sql);
 
                                     if ($result->num_rows > 0) {
                                         // Output data setiap baris
                                         while ($row = $result->fetch_assoc()) {
                                             echo "<tr>";
-                                            echo "<td>" . $row["id"] . "</td>";
-                                            echo "<td>" . $row["session_id"] . "</td>";
-                                            echo "<td>" . $row["nisn_siswa"] . "</td>";
-                                            echo "<td>" . $row["status_siswa"] . "</td>";
-                                            echo "<td>" . $row["time_stamp"] . "</td>";
-                                            echo "<td>" . $row["id_guru"] . "</td>";
+                                            echo "<td>" . $row["id_presensi"] . "</td>";
+                                            echo "<td>" . $row["namaGuru_presensi"] . "</td>";
+                                            echo "<td>" . $row["kelasSiswa_presensi"] . "</td>";
+                                            echo "<td>" . $row["namaSiswa_presensi"] . "</td>";
+                                            echo "<td>" . $row["statusSiswa_presensi"] . "</td>";
+                                            echo "<td>" . $row["waktu_presensi"] . "</td>";
                                             echo "</tr>";
                                         }
                                     } else {

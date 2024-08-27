@@ -136,7 +136,7 @@ session_start();
                                                     <option value="">Semua</option>
                                                     <?php
                                                     // Koneksi ke database
-                                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi2');
+                                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi4');
 
                                                     // Cek koneksi
                                                     if ($conn->connect_error) {
@@ -169,7 +169,7 @@ session_start();
                                 <div class="card-body p-0">
                                     <?php
                                     // Koneksi ke database
-                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi2');
+                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi4');
 
                                     // Cek koneksi
                                     if ($conn->connect_error) {
@@ -202,19 +202,19 @@ session_start();
                 </tr>
             </thead>
             <tbody>";
-                                            while ($row = $result->fetch_assoc()) {
-                                                // Nama grup radio berdasarkan ID siswa
-                                                $radioGroupName = "kehadiran_" . $row['id'];
-                                                echo "<tr>
+            while ($row = $result->fetch_assoc()) {
+                // Nama grup radio berdasarkan ID siswa
+                $radioGroupName = "kehadiran_" . $row['id_siswa']; // Pastikan ID siswa digunakan sebagai bagian dari nama grup
+                echo "<tr>
                     <td>" . $row['id_siswa'] . "</td>
                     <td>" . $row['nama_siswa'] . "</td>
                     <td>" . $row['idKelas_siswa'] . "</td>
-                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='hadir_" . $row['id'] . "' value='Hadir'><label class='btn btn-outline-primary w-100' for='hadir_" . $row['id'] . "'>Hadir</label></td>
-                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='sakit_" . $row['id'] . "' value='Sakit'><label class='btn btn-outline-primary w-100' for='sakit_" . $row['id'] . "'>Sakit</label></td>
-                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='izin_" . $row['id'] . "' value='Izin'><label class='btn btn-outline-primary w-100' for='izin_" . $row['id'] . "'>Izin</label></td>
-                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='alpha_" . $row['id'] . "' value='Alpha'><label class='btn btn-outline-primary w-100' for='alpha_" . $row['id'] . "'>Alpha</label></td>
-                  </tr>";
-                                            }
+                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='hadir_" . $row['id_siswa'] . "' value='Hadir'><label class='btn btn-outline-primary w-100' for='hadir_" . $row['id_siswa'] . "'>Hadir</label></td>
+                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='sakit_" . $row['id_siswa'] . "' value='Sakit'><label class='btn btn-outline-primary w-100' for='sakit_" . $row['id_siswa'] . "'>Sakit</label></td>
+                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='izin_" . $row['id_siswa'] . "' value='Izin'><label class='btn btn-outline-primary w-100' for='izin_" . $row['id_siswa'] . "'>Izin</label></td>
+                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='alpha_" . $row['id_siswa'] . "' value='Alpha'><label class='btn btn-outline-primary w-100' for='alpha_" . $row['id_siswa'] . "'>Alpha</label></td>
+                </tr>";
+            }
                                             echo "</tbody></table>";
                                         } else {
                                             echo "<p class='mt-4'>Tidak ada data siswa yang ditemukan.</p>";

@@ -2,7 +2,7 @@
 session_start();
 
 // Koneksi ke database
-$conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi2');
+$conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi4');
 
 // Cek koneksi
 if ($conn->connect_error) {
@@ -18,10 +18,12 @@ $nama_guru = 'Cahyadi';
 foreach ($_POST as $key => $value) {
     if (strpos($key, 'kehadiran_') === 0) {
         $id_siswa = str_replace('kehadiran_', '', $key);
+
+        // Ambil status siswa dari form
         $status_siswa = $value;
 
         // Query untuk mendapatkan ID kelas dan nama siswa berdasarkan ID siswa
-        $sql_siswa = "SELECT idKelas_siswa, nama_siswa FROM tabel_siswa WHERE id_siswa= 12";
+        $sql_siswa = "SELECT idKelas_siswa, nama_siswa FROM tabel_siswa WHERE id_siswa = '$id_siswa'";
         $result_siswa = $conn->query($sql_siswa);
 
         if ($result_siswa->num_rows > 0) {

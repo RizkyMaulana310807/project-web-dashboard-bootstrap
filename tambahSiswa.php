@@ -403,7 +403,7 @@
                                         <option value="none">Pilih Kelas</option>
                                         <?php
                                         // Koneksi ke database
-                                        $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi2');
+                                        $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi4');
 
                                         // Cek koneksi
                                         if ($conn->connect_error) {
