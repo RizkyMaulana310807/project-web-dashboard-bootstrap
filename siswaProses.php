@@ -4,19 +4,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-// Konfigurasi database
-$servername = "localhost";
-$username = "root";
-$password = "rizkymaulana31";
-$dbname = "testing_presensi4";
-
-// Membuat koneksi
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Memeriksa koneksi
-if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
-}
+include "connect.php";
 
 // Mengambil data dari form
 $nisn = isset($_POST['nisn']) ? $_POST['nisn'] : '';

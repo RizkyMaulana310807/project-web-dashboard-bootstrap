@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -32,7 +33,9 @@
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li><a class="dropdown-item" href="#!">Settings</a></li>
                     <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
                     <li><a class="dropdown-item" href="login.php">Logout</a></li>
                 </ul>
             </li>
@@ -109,25 +112,17 @@
                         </thead>
                         <tbody>
                             <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "testing_presensi4";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
+                            include "connect.php";
 
                             $sql = "SELECT * FROM tabel_siswa";
                             $result = $conn->query($sql);
-
+                            $no = 0;
                             if ($result->num_rows > 0) {
                                 // Output data setiap baris
                                 while ($row = $result->fetch_assoc()) {
+                                    $no++;
                                     echo "<tr>";
-                                    echo "<td>" . $row["id_siswa"] . "</td>";
+                                    echo "<td>" . $no . "</td>";
                                     echo "<td>" . $row["nisn_siswa"] . "</td>";
                                     echo "<td>" . $row["nama_siswa"] . "</td>";
                                     echo "<td>" . $row["idKelas_siswa"] . "</td>";
@@ -158,15 +153,15 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editSiswaModalLabel">Edit Siswa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title" id="editSiswaModal">Edit Siswa</h5>
+                    <!-- <button type="button" class="btn-close" id="editModalClose" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <div class="modal-body">
                     <form id="editSiswaForm">
                         <input type="hidden" id="editId" name="id_siswa">
                         <div class="mb-3">
                             <label for="editNISN" class="form-label">NISN</label>
-                            <input type="text" class="form-control" id="editNISN" name="nisn_siswa">
+                            <input type="text" class="form-control" id="editNISN" name="nisn_siswa" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="editNama" class="form-label">Nama</label>
@@ -202,7 +197,7 @@
                 <div class="modal-body">
                     <form id="deleteSiswaForm">
                         <input type="hidden" id="deleteId" name="id_siswa">
-                        <p>Are you sure you want to delete this record?</p>
+                        <p>Apakah anda yakin ingin menghapusnya ?</p>
                         <button type="submit" class="btn btn-danger">Delete</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     </form>
@@ -223,6 +218,7 @@
                 document.getElementById('editGender').value = button.getAttribute('data-gender');
                 document.getElementById('editTglLahir').value = button.getAttribute('data-tgllahir');
                 modal.show();
+
             });
         });
 
@@ -240,26 +236,26 @@
             e.preventDefault();
             const formData = new FormData(this);
             fetch('updateSiswa.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.text())
-              .then(data => {
-                  alert('Data updated successfully');
-                  window.location.reload();
-              }).catch(error => console.error('Error:', error));
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.text())
+                .then(data => {
+                    alert('Data updated successfully');
+                    window.location.reload();
+                }).catch(error => console.error('Error:', error));
         });
 
         document.getElementById('deleteSiswaForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
             fetch('deleteSiswa.php', {
-                method: 'POST',
-                body: formData
-            }).then(response => response.text())
-              .then(data => {
-                  alert('Data deleted successfully');
-                  window.location.reload();
-              }).catch(error => console.error('Error:', error));
+                    method: 'POST',
+                    body: formData
+                }).then(response => response.text())
+                .then(data => {
+                    alert('Data deleted successfully');
+                    window.location.reload();
+                }).catch(error => console.error('Error:', error));
         });
     </script>
 
@@ -268,4 +264,5 @@
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
     <script src="js/datatables-simple-demo.js"></script>
 </body>
+
 </html>

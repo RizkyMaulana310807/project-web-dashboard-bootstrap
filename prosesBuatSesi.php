@@ -16,17 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Menghubungkan ke database (Gantilah dengan kredensial Anda sendiri)
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "presensi_siswa";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Cek koneksi
-    if ($conn->connect_error) {
-        die("Koneksi gagal: " . $conn->connect_error);
-    }
+    include "connect.php";
 
     // Hitung tanggal sesi berulang untuk setiap hari yang dipilih
     $dates = [];

@@ -4,17 +4,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['kelas'])) {
     $selectedKelas = $_GET['kelas'];
     
     // Koneksi ke database
-    $servername = "localhost";
-    $username = "root";
-    $password = "rizkymaulana31";
-    $dbname = "dummy_presensi";
-
-    $conn = new mysqli($servername, $username, $password, $dbname);
-
-    // Periksa koneksi
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
+    include "connect.php";
 
     // Query untuk mendapatkan data sesuai dengan kelas yang dipilih
     $sql = "SELECT * FROM siswa WHERE kelas = ?";

@@ -1,8 +1,7 @@
 <?php
 session_start();
 
-// Koneksi ke database
-$conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi4');
+include "connect.php";
 
 // Cek koneksi
 if ($conn->connect_error) {

@@ -1,10 +1,5 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "rizkymaulana31";
-$dbname = "dummy_presensi";
-
-$conn = new mysqli($servername, $username, $password, $dbname);
+include "connect.php";
 
 $sql = "SELECT status_siswa, COUNT(status_siswa) as jumlah FROM presensi GROUP BY status_siswa";
 $result = $conn->query($sql);

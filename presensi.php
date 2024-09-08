@@ -135,13 +135,7 @@ session_start();
                                                 <select name="kelas" id="kelas" class="form-select" onchange="this.form.submit()">
                                                     <option value="">Semua</option>
                                                     <?php
-                                                    // Koneksi ke database
-                                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi4');
-
-                                                    // Cek koneksi
-                                                    if ($conn->connect_error) {
-                                                        die("Koneksi gagal: " . $conn->connect_error);
-                                                    }
+                                                    include "connect.php";
 
                                                     // Query untuk mengambil daftar kelas yang unik
                                                     $sql = "SELECT DISTINCT(nama_kelas) FROM tabel_kelas";
@@ -169,12 +163,7 @@ session_start();
                                 <div class="card-body p-0">
                                     <?php
                                     // Koneksi ke database
-                                    $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi4');
-
-                                    // Cek koneksi
-                                    if ($conn->connect_error) {
-                                        die("Koneksi gagal: " . $conn->connect_error);
-                                    }
+                                    include "connect.php";
 
                                     // Query untuk mengambil data siswa sesuai kategori yang dipilih
                                     $sql = "SELECT * FROM tabel_siswa";
@@ -202,11 +191,13 @@ session_start();
                 </tr>
             </thead>
             <tbody>";
+            $no = 0;
             while ($row = $result->fetch_assoc()) {
+                $no++;
                 // Nama grup radio berdasarkan ID siswa
                 $radioGroupName = "kehadiran_" . $row['id_siswa']; // Pastikan ID siswa digunakan sebagai bagian dari nama grup
                 echo "<tr>
-                    <td>" . $row['id_siswa'] . "</td>
+                    <td>" . $no . "</td>
                     <td>" . $row['nama_siswa'] . "</td>
                     <td>" . $row['idKelas_siswa'] . "</td>
                     <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='hadir_" . $row['id_siswa'] . "' value='Hadir'><label class='btn btn-outline-primary w-100' for='hadir_" . $row['id_siswa'] . "'>Hadir</label></td>

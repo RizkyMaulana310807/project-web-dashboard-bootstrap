@@ -151,12 +151,7 @@
                                         <option value="">Semua</option>
                                         <?php
                                         // Koneksi ke database
-                                        $conn = new mysqli('localhost', 'root', 'rizkymaulana31', 'testing_presensi4');
-
-                                        // Cek koneksi
-                                        if ($conn->connect_error) {
-                                            die("Koneksi gagal: " . $conn->connect_error);
-                                        }
+                                        include "connect.php";
 
                                         // Query untuk mengambil daftar kelas yang unik
                                         $sql = "SELECT DISTINCT(nama_kelas) FROM tabel_kelas";

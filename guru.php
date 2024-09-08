@@ -118,16 +118,7 @@
 
                         <tbody>
                             <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "testing_presensi4";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
+                            include "connect.php";
 
                             $sql = "SELECT * FROM tabel_guru";
                             $result = $conn->query($sql);
@@ -169,14 +160,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <!-- <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> -->
                 </div>
                 <form id="editForm">
                     <div class="modal-body">
                         <input type="hidden" id="editId" name="id_guru">
                         <div class="mb-3">
                             <label for="editNIK" class="form-label">NIK</label>
-                            <input type="text" class="form-control" id="editNIK" name="nik_guru">
+                            <input type="text" class="form-control" id="editNIK" name="nik_guru" disabled>
                         </div>
                         <div class="mb-3">
                             <label for="editNama" class="form-label">Nama</label>
@@ -216,7 +207,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    Are you sure you want to delete this record?
+                    Apakah anda yakin ingin menghapusnya ?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
