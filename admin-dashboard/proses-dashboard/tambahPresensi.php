@@ -42,13 +42,13 @@ $conn->close();
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
-    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
-
-    <link href="assets/img/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <title>Dashboard - SB Admin</title>
+    <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
+    <link href="../../css/styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../font/fontawesome/css/all.min.css">
+    <script src="../../js/scripts.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../../js/datatables-simple-demo.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -80,264 +80,6 @@ $conn->close();
         </ul>
     </nav>
     <!-- End Navbar -->
-    <div class="modal fade w-full" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">SISWA HADIR</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table id="datatablesSimple">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT * FROM presensi where status = 'hadir'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade w-full" id="myModal1" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">SISWA SAKIT</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT * FROM presensi where status = 'sakit'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade w-full" id="myModal2" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">SISWA IZIN</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT * FROM presensi where status = 'izin'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade w-full" id="myModal3" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myModalLabel">SISWA ALPHA</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <table id="datatablesSimple" class="table table-bordered sticky-table">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>NISN</th>
-                                <th>TANGGAL</th>
-                                <th>STATUS</th>
-                                <th>TIMESTAMP</th>
-                                <th>GURUID</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <?php
-                            $servername = "localhost";
-                            $username = "root";
-                            $password = "rizkymaulana31";
-                            $dbname = "rizky_presensi";
-
-                            $conn = new mysqli($servername, $username, $password, $dbname);
-
-                            if ($conn->connect_error) {
-                                die("Connection failed: " . $conn->connect_error);
-                            }
-
-                            $sql = "SELECT * FROM presensi where status = 'alpha'";
-                            $result = $conn->query($sql);
-
-                            if ($result->num_rows > 0) {
-
-                                while ($row = $result->fetch_assoc()) {
-                                    echo "<tr>";
-                                    echo "<td>" . $row["id"] . "</td>";
-                                    echo "<td>" . $row["nisn"] . "</td>";
-                                    echo "<td>" . $row["tanggal"] . "</td>";
-                                    echo "<td>" . $row["status"] . "</td>";
-                                    echo "<td>" . $row["timestamp"] . "</td>";
-                                    echo "<td>" . $row["guruId"] . "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='3'>Tidak ada data</td></tr>";
-                            }
-
-                            $conn->close();
-                            ?>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
     <!-- Sidebar -->
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
@@ -345,7 +87,7 @@ $conn->close();
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="index.php">
+                        <a class="nav-link" href="../main-dashboard/index.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
@@ -357,9 +99,9 @@ $conn->close();
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="siswa.php">Siswa</a>
-                                <a class="nav-link" href="guru.php">Guru</a>
-                                <a class="nav-link" href="presensi.php">presensi</a>
+                                <a class="nav-link" href="../main-dashboard/siswa.php">Siswa</a>
+                                <a class="nav-link" href="../main-dashboard/guru.php">Guru</a>
+                                <a class="nav-link" href="../main-dashboard/presensi.php">Presensi</a>
                             </nav>
                         </div>
                         <div class="sb-sidenav-menu-heading">Admin</div>
@@ -370,7 +112,7 @@ $conn->close();
                         </a>
                         <div class="collapse" id="tambahLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="tambaSiswa.php">Siswa</a>
+                                <a class="nav-link" href="tambahSiswa.php">Siswa</a>
                                 <a class="nav-link" href="tambahGuru.php">Guru</a>
                                 <a class="nav-link" href="buatSesi.php">Tambah Sesi</a>
                             </nav>
@@ -402,11 +144,6 @@ $conn->close();
             </footer>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
 </body>
 
 </html>

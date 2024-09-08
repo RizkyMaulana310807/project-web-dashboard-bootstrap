@@ -11,10 +11,13 @@ session_start();
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
-    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <title>Dashboard - SB Admin</title>
+    <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
+    <link href="../../css/styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../font/fontawesome/css/all.min.css">
+    <script src="../../js/scripts.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../../js/datatables-simple-demo.js"></script>
     <style>
         .floating-alert {
             position: fixed;
@@ -78,7 +81,7 @@ session_start();
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="index.php">
+                        <a class="nav-link" href="../main-dashboard/index.php">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
@@ -90,9 +93,9 @@ session_start();
                         </a>
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="siswa.php">Siswa</a>
-                                <a class="nav-link" href="guru.php">Guru</a>
-                                <a class="nav-link" href="presensi.php">Presensi</a>
+                                <a class="nav-link" href="../main-dashboard/siswa.php">Siswa</a>
+                                <a class="nav-link" href="../main-dashboard/guru.php">Guru</a>
+                                <a class="nav-link" href="../main-dashboard/presensi.php">Presensi</a>
                             </nav>
                         </div>
                         <div class="sb-sidenav-menu-heading">Admin</div>
@@ -225,12 +228,6 @@ session_start();
         </div>
         <!-- End Main Content -->
     </div>
-
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
 </body>
 
 </html>

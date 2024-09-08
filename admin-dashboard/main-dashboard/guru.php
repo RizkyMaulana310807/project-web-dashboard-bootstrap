@@ -8,11 +8,13 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
-    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
+    <link href="../../css/styles.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../font/fontawesome/css/all.min.css">
+    <script src="../../js/scripts.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../../js/datatables-simple-demo.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -79,9 +81,9 @@
                         </a>
                         <div class="collapse" id="tambahLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="tambahSiswa.php">Siswa</a>
-                                <a class="nav-link" href="tambahGuru.php">Guru</a>
-                                <a class="nav-link" href="buatSesi.php">Tambah Sesi</a>
+                                <a class="nav-link" href="../proses-dashboard/tambahSiswa.php">Siswa</a>
+                                <a class="nav-link" href="../proses-dashboard/tambahGuru.php">Guru</a>
+                                <a class="nav-link" href="../proses-dashboard/buatSesi.php">Tambah Sesi</a>
                             </nav>
                         </div>
                     </div>
@@ -103,7 +105,7 @@
                     DataTable Example
                 </div>
                 <div class="card-body">
-                    <table id="datatablesSimple">
+                    <table id="datatablesSimple" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -118,7 +120,7 @@
 
                         <tbody>
                             <?php
-                            include "connect.php";
+                            include "../proses-dashboard/connect.php";
 
                             $sql = "SELECT * FROM tabel_guru";
                             $result = $conn->query($sql);
@@ -263,7 +265,7 @@
                 console.log(key + ': ' + value);
             }
 
-            fetch('updateGuru.php', {
+            fetch('../proses-dashboard/updateGuru.php', {
                     method: 'POST',
                     body: formData
                 }).then(response => response.text())
@@ -288,7 +290,7 @@
 
         // Confirm Delete
         document.getElementById('confirmDelete').addEventListener('click', function() {
-            fetch('deleteGuru.php', {
+            fetch('../proses-dashboard/deleteGuru.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
