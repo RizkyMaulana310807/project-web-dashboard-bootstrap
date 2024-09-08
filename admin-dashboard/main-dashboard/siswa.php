@@ -8,12 +8,13 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
-    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
+    <link href="../../css/styles.css" rel="stylesheet"/>
+    <link href="../../css/bootstrap.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../font/fontawesome/css/all.min.css">
+    <script src="../../js/scripts.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../../js/datatables-simple-demo.js"></script>
 </head>
 
 <body class="sb-nav-fixed">
@@ -36,7 +37,7 @@
                     <li>
                         <hr class="dropdown-divider" />
                     </li>
-                    <li><a class="dropdown-item" href="login.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="../../login.php">Logout</a></li>
                 </ul>
             </li>
         </ul>
@@ -75,9 +76,9 @@
                         </a>
                         <div class="collapse" id="tambahLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="tambahSiswa.php">Siswa</a>
-                                <a class="nav-link" href="tambahGuru.php">Guru</a>
-                                <a class="nav-link" href="buatSesi.php">Tambah Sesi</a>
+                                <a class="nav-link" href="../proses-dashboard/tambahSiswa.php">Siswa</a>
+                                <a class="nav-link" href="../proses-dashboard/tambahGuru.php">Guru</a>
+                                <a class="nav-link" href="../proses-dashboard/buatSesi.php">Tambah Sesi</a>
                             </nav>
                         </div>
                     </div>
@@ -98,7 +99,7 @@
                     Data Siswa
                 </div>
                 <div class="card-body">
-                    <table id="datatablesSimple">
+                    <table id="datatablesSimple" class="table table-striped table-bordered">
                         <thead>
                             <tr>
                                 <th>ID</th>
@@ -112,7 +113,7 @@
                         </thead>
                         <tbody>
                             <?php
-                            include "connect.php";
+                            include "../proses-dashboard/connect.php";
 
                             $sql = "SELECT * FROM tabel_siswa";
                             $result = $conn->query($sql);
@@ -235,7 +236,7 @@
         document.getElementById('editSiswaForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-            fetch('updateSiswa.php', {
+            fetch('../proses-dashboard/updateSiswa.php', {
                     method: 'POST',
                     body: formData
                 }).then(response => response.text())
@@ -248,7 +249,7 @@
         document.getElementById('deleteSiswaForm').addEventListener('submit', function(e) {
             e.preventDefault();
             const formData = new FormData(this);
-            fetch('deleteSiswa.php', {
+            fetch('../proses-dashboard/deleteSiswa.php', {
                     method: 'POST',
                     body: formData
                 }).then(response => response.text())
@@ -258,11 +259,6 @@
                 }).catch(error => console.error('Error:', error));
         });
     </script>
-
-    <script src="js/scripts.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
 </body>
 
 </html>

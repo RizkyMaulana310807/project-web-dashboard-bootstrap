@@ -11,10 +11,13 @@ session_start();
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Dashboard - SB Admin</title>
-    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <link rel="icon" href="../../assets/img/favicon.ico" type="image/x-icon">
+    <link href="../../css/styles.css" rel="stylesheet" />
+    <link href="../../css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../font/fontawesome/css/all.min.css">
+    <script src="../../js/scripts.js"></script>
+    <script src="../../js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../../js/datatables-simple-demo.js"></script>
     <style>
         .floating-alert {
             position: fixed;
@@ -98,14 +101,14 @@ session_start();
                         <div class="sb-sidenav-menu-heading">Admin</div>
                         <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#tambahLayout" aria-expanded="false" aria-controls="tambahLayout">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Tambah data
+                            Tambah Data
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
                         <div class="collapse" id="tambahLayout" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="tambahSiswa.php">Siswa</a>
-                                <a class="nav-link" href="tambahGuru.php">Guru</a>
-                                <a class="nav-link" href="presensi.php">presensi</a>
+                                <a class="nav-link" href="../proses-dashboard/tambahSiswa.php">Siswa</a>
+                                <a class="nav-link" href="../proses-dashboard/tambahGuru.php">Guru</a>
+                                <a class="nav-link" href="../proses-dashboard/buatSesi.php">Tambah Sesi</a>
                             </nav>
                         </div>
                     </div>
@@ -135,7 +138,7 @@ session_start();
                                                 <select name="kelas" id="kelas" class="form-select" onchange="this.form.submit()">
                                                     <option value="">Semua</option>
                                                     <?php
-                                                    include "connect.php";
+                                                    include "../proses-dashboard/connect.php";
 
                                                     // Query untuk mengambil daftar kelas yang unik
                                                     $sql = "SELECT DISTINCT(nama_kelas) FROM tabel_kelas";
@@ -163,7 +166,7 @@ session_start();
                                 <div class="card-body p-0">
                                     <?php
                                     // Koneksi ke database
-                                    include "connect.php";
+                                    include "../proses-dashboard/connect.php";
 
                                     // Query untuk mengambil data siswa sesuai kategori yang dipilih
                                     $sql = "SELECT * FROM tabel_siswa";
@@ -179,33 +182,33 @@ session_start();
                                         if ($result->num_rows > 0) {
                                             echo "<h3 class='mt-4 text-center'>Data Siswa</h3>";
                                             echo "<table class='table table-bordered table-striped w-100 text-center'>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nama</th>
-                    <th>Kelas</th>
-                    <th>Hadir</th>
-                    <th>Sakit</th>
-                    <th>Izin</th>
-                    <th>Alpha</th>
-                </tr>
-            </thead>
-            <tbody>";
-            $no = 0;
-            while ($row = $result->fetch_assoc()) {
-                $no++;
-                // Nama grup radio berdasarkan ID siswa
-                $radioGroupName = "kehadiran_" . $row['id_siswa']; // Pastikan ID siswa digunakan sebagai bagian dari nama grup
-                echo "<tr>
-                    <td>" . $no . "</td>
-                    <td>" . $row['nama_siswa'] . "</td>
-                    <td>" . $row['idKelas_siswa'] . "</td>
-                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='hadir_" . $row['id_siswa'] . "' value='Hadir'><label class='btn btn-outline-primary w-100' for='hadir_" . $row['id_siswa'] . "'>Hadir</label></td>
-                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='sakit_" . $row['id_siswa'] . "' value='Sakit'><label class='btn btn-outline-primary w-100' for='sakit_" . $row['id_siswa'] . "'>Sakit</label></td>
-                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='izin_" . $row['id_siswa'] . "' value='Izin'><label class='btn btn-outline-primary w-100' for='izin_" . $row['id_siswa'] . "'>Izin</label></td>
-                    <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='alpha_" . $row['id_siswa'] . "' value='Alpha'><label class='btn btn-outline-primary w-100' for='alpha_" . $row['id_siswa'] . "'>Alpha</label></td>
-                </tr>";
-            }
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Nama</th>
+                                                        <th>Kelas</th>
+                                                        <th>Hadir</th>
+                                                        <th>Sakit</th>
+                                                        <th>Izin</th>
+                                                        <th>Alpha</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>";
+                                            $no = 0;
+                                            while ($row = $result->fetch_assoc()) {
+                                                $no++;
+                                                // Nama grup radio berdasarkan ID siswa
+                                                $radioGroupName = "kehadiran_" . $row['id_siswa']; // Pastikan ID siswa digunakan sebagai bagian dari nama grup
+                                                echo "<tr>
+                                                        <td>" . $no . "</td>
+                                                        <td>" . $row['nama_siswa'] . "</td>
+                                                        <td>" . $row['idKelas_siswa'] . "</td>
+                                                        <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='hadir_" . $row['id_siswa'] . "' value='Hadir'><label class='btn btn-outline-primary w-100' for='hadir_" . $row['id_siswa'] . "'>Hadir</label></td>
+                                                        <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='sakit_" . $row['id_siswa'] . "' value='Sakit'><label class='btn btn-outline-primary w-100' for='sakit_" . $row['id_siswa'] . "'>Sakit</label></td>
+                                                        <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='izin_" . $row['id_siswa'] . "' value='Izin'><label class='btn btn-outline-primary w-100' for='izin_" . $row['id_siswa'] . "'>Izin</label></td>
+                                                        <td><input type='radio' class='btn-check' name='" . $radioGroupName . "' id='alpha_" . $row['id_siswa'] . "' value='Alpha'><label class='btn btn-outline-primary w-100' for='alpha_" . $row['id_siswa'] . "'>Alpha</label></td>
+                                                    </tr>";
+                                            }
                                             echo "</tbody></table>";
                                         } else {
                                             echo "<p class='mt-4'>Tidak ada data siswa yang ditemukan.</p>";
@@ -243,12 +246,6 @@ session_start();
         </div>
         <!-- End Main Content -->
     </div>
-
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-    <script src="js/datatables-simple-demo.js"></script>
     <script>
         function onChangeAction() {
             console.log("Action Change");
@@ -257,36 +254,35 @@ session_start();
         }
         var isAlertVisible = false; // Variabel untuk melacak status notifikasi
 
-// Fungsi untuk membuat dan menampilkan alert baru
-function createAlert(message) {
-    if (!isAlertVisible) {
-        isAlertVisible = true;
+        // Fungsi untuk membuat dan menampilkan alert baru
+        function createAlert(message) {
+            if (!isAlertVisible) {
+                isAlertVisible = true;
 
-        // Membuat elemen div untuk alert baru
-        var alertDiv = document.createElement('div');
-        alertDiv.className = 'alert alert-success alert-dismissible fade show floating-alert';
-        alertDiv.role = 'alert';
-        alertDiv.innerHTML = `
+                // Membuat elemen div untuk alert baru
+                var alertDiv = document.createElement('div');
+                alertDiv.className = 'alert alert-success alert-dismissible fade show floating-alert';
+                alertDiv.role = 'alert';
+                alertDiv.innerHTML = `
             ${message}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         `;
 
-        // Menambahkan alert baru ke dalam body
-        document.body.appendChild(alertDiv);
+                // Menambahkan alert baru ke dalam body
+                document.body.appendChild(alertDiv);
 
-        // Menghilangkan alert secara otomatis setelah 2 detik
-        setTimeout(function() {
-            alertDiv.remove(); // Menghapus alert dari DOM
-            isAlertVisible = false;
-        }, 2000);
+                // Menghilangkan alert secara otomatis setelah 2 detik
+                setTimeout(function() {
+                    alertDiv.remove(); // Menghapus alert dari DOM
+                    isAlertVisible = false;
+                }, 2000);
 
-        // Mengatur agar status diperbarui jika alert ditutup secara manual
-        alertDiv.addEventListener('closed.bs.alert', function() {
-            isAlertVisible = false;
-        });
-    }
-}
-
+                // Mengatur agar status diperbarui jika alert ditutup secara manual
+                alertDiv.addEventListener('closed.bs.alert', function() {
+                    isAlertVisible = false;
+                });
+            }
+        }
     </script>
 </body>
 
